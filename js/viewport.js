@@ -33,18 +33,28 @@
         if(!this.rotated||event.pointerType!=='touch'||event.target.closest('input,select,textarea')||!event.target.closest('.front-shell,.menu-card,dialog'))return;
         let el=event.target;
         while(el&&el!==document.body){if(el.scrollHeight>el.clientHeight+1&&/auto|scroll/.test(getComputedStyle(el).overflowY))break;el=el.parentElement;}
-        if(!el||el===document.body)return;
-        this.scrollGesture={id:event.pointerId,x:event.clientX,y:event.clientY,top:el.scrollTop,el,target:event.target,moved:false};
+        const button=event.target.closest('button');if(el===document.body)el=null;
+        if(!el&&!button)return;
+        this.scrollGesture={id:event.pointerId,x:event.clientX,y:event.clientY,top:el?.scrollTop||0,el,button,target:event.target,moved:false};
       },true);
       document.addEventListener('pointermove',event=>{
         const g=this.scrollGesture;if(!g||g.id!==event.pointerId||!this.rotated)return;
         const d=localDelta(event.clientX-g.x,event.clientY-g.y,true);if(Math.abs(d.y)<8&&!g.moved)return;
-        g.moved=true;event.preventDefault();g.el.scrollTop=g.top-d.y;
-        try{if(!g.el.hasPointerCapture(g.id))g.el.setPointerCapture(g.id);}catch{}
+        g.moved=true;event.preventDefault();if(g.el)g.el.scrollTop=g.top-d.y;
+        const capture=g.el||g.button;try{if(capture&&!capture.hasPointerCapture(g.id))capture.setPointerCapture(g.id);}catch{}
       },{capture:true,passive:false});
-      const end=event=>{const g=this.scrollGesture;if(!g||g.id!==event.pointerId)return;if(g.moved)this.suppressedClick={id:g.id,target:g.target,time:performance.now()};this.scrollGesture=null;try{if(g.el.hasPointerCapture(g.id))g.el.releasePointerCapture(g.id);}catch{}};
+      const end=event=>{
+        const g=this.scrollGesture;if(!g||g.id!==event.pointerId)return;this.scrollGesture=null;
+        if(g.moved)this.suppressedClick={id:g.id,target:g.target,time:performance.now()};
+        else if(event.type==='pointerup'&&g.button&&!g.button.disabled){
+          // Some embedded browsers drop the first native click after a custom scroll.
+          // Activate this real tap once and discard any later native duplicate.
+          event.preventDefault();this.suppressedClick={id:g.id,target:g.button,time:performance.now()};g.button.click();
+        }
+        const capture=g.el||g.button;try{if(capture?.hasPointerCapture(g.id))capture.releasePointerCapture(g.id);}catch{}
+      };
       document.addEventListener('pointerup',end,true);document.addEventListener('pointercancel',end,true);
-      document.addEventListener('click',event=>{const s=this.suppressedClick;if(s&&performance.now()-s.time<500&&(event.pointerId===s.id||(event.pointerId===undefined&&event.target===s.target))){event.preventDefault();event.stopPropagation();this.suppressedClick=null;}},true);
+      document.addEventListener('click',event=>{const s=this.suppressedClick;if(s&&event.isTrusted&&performance.now()-s.time<500&&(event.pointerId===s.id||s.target===event.target||s.target.contains(event.target))){event.preventDefault();event.stopPropagation();this.suppressedClick=null;}},true);
     }
     snapshot(){return {rotated:this.rotated,width:this.size.width,height:this.size.height};}
   }
