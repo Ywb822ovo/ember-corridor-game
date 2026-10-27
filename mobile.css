@@ -1,0 +1,62 @@
+/* Thumb controls follow the existing stone, brass and ember palette. */
+#touch-controls,#touch-pause,#rotate-tip{display:none}
+.touch-mode #touch-controls:not([hidden]){display:block}
+.touch-mode #touch-pause:not([hidden]){display:grid}
+.touch-mode #rotate-tip:not([hidden]){display:flex}
+.touch-mode body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+.touch-mode .game-window{width:100%;height:100dvh;margin:0;max-width:none;border:0}
+.touch-mode .front-shell{padding:16px max(18px,env(safe-area-inset-right)) 14px max(18px,env(safe-area-inset-left));overflow-y:auto;overscroll-behavior:contain}
+.touch-mode .front-page{flex:0 0 auto;min-height:0;overflow:visible}
+.touch-mode button{min-height:44px}
+.touch-mode .front-header{min-height:46px;flex-shrink:0}
+.touch-mode .home-layout{height:auto;min-height:0}
+.touch-mode .front-footer{flex-shrink:0;margin-top:16px}
+.touch-mode .overlay{padding:12px max(14px,env(safe-area-inset-right)) 12px max(14px,env(safe-area-inset-left));z-index:12}
+.touch-mode .menu-card{max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain}
+.touch-mode .menu-card button{touch-action:manipulation}
+.touch-mode #game-canvas,.touch-mode #touch-controls{touch-action:none;user-select:none;-webkit-user-select:none}
+#touch-controls{position:absolute;inset:0;pointer-events:none;z-index:6}
+#move-pad{position:absolute;pointer-events:auto;left:max(22px,env(safe-area-inset-left));bottom:max(22px,env(safe-area-inset-bottom));width:126px;height:126px;border-radius:50%;background:radial-gradient(circle,#c5a57513 35%,#1a182c85 37%,#30283b6e 65%);border:2px solid #e4c38a85;box-shadow:inset 0 0 0 10px #14152218,0 3px 14px #0003;touch-action:none;display:grid;place-items:center}
+#move-pad::before,#move-pad::after{content:'';position:absolute;background:#d8bf8c1a;pointer-events:none}
+#move-pad::before{width:1px;height:86%}#move-pad::after{height:1px;width:86%}
+#move-knob{display:block;width:48px;height:48px;border-radius:50%;border:1px solid #e3c990ad;background:radial-gradient(circle at 35% 25%,#bca675aa,#504c59b8);box-shadow:0 3px 8px #0003;pointer-events:none;z-index:1}
+.touch-action{pointer-events:auto;position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;color:#fff0d4;background:#2424319c;backdrop-filter:blur(3px);border:2px solid #b4b6c3b5;box-shadow:0 3px 12px #0004;touch-action:none;user-select:none;-webkit-user-select:none}
+.touch-action strong{font-size:15px;font-weight:600;letter-spacing:2px}.touch-action small{font-size:9px;margin-top:4px;color:#ddcfbe;letter-spacing:1px}.touch-action .touch-glyph{font-size:25px;line-height:1.1;margin-bottom:4px}
+#touch-attack{width:112px;height:112px;right:max(23px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));border:3px solid #e7c17c;background:radial-gradient(circle at 50% 34%,#ab6e32ac,#402932bd 65%);box-shadow:0 0 0 5px #1c19294d,0 4px 18px #0004}
+#touch-attack .touch-glyph{color:#ffe29c;font-size:31px}#touch-attack.pressed{background:radial-gradient(circle at 50% 34%,#dc9a48da,#755239df);box-shadow:0 0 20px #ebc67b55;transform:scale(.97)}
+#touch-interact{width:80px;height:80px;right:max(157px,calc(env(safe-area-inset-right) + 134px));bottom:max(26px,env(safe-area-inset-bottom));border-color:#9dcbd4;background:#263d4c9e}
+#touch-interact:disabled{opacity:.42}#touch-interact:disabled small{color:#d7e2e0}
+#touch-pause{position:absolute;z-index:7;right:max(12px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));border-radius:50%;width:44px;height:44px;place-items:center;background:#252332c9;border:1px solid #b3a084;color:#f2e1c2;font-size:21px;padding:0;touch-action:manipulation}
+#rotate-tip{position:absolute;inset:0;z-index:30;background:#14121bf5;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px;gap:14px}
+.rotate-icon{width:78px;height:45px;border:3px solid #d9b77a;border-radius:9px;position:relative;margin:15px}
+.rotate-icon::after{content:'↻';position:absolute;right:-27px;top:-23px;font-size:32px;color:#d9b77a}
+#rotate-tip h2{margin:4px 0;font-size:24px}#rotate-tip p{color:#bfaf9b;font-size:13px;line-height:1.8}#rotate-tip button{margin-top:16px;width:180px}
+@media(orientation:landscape){
+ .touch-mode .hero-hud{left:max(12px,env(safe-area-inset-left));top:max(10px,env(safe-area-inset-top));padding:8px 10px;gap:8px;min-width:185px;max-width:230px;border-width:1px;border-radius:10px;background:#201e2bc4;pointer-events:none}
+ .touch-mode .portrait{display:block;width:32px;height:32px;background-size:384px 352px;background-position:-64px -256px}
+ .touch-mode .hero-name{font-size:10px;gap:10px}.touch-mode .hero-name>span{font-size:10px}
+ .touch-mode .hearts{margin:6px 0;gap:3px;max-width:160px}.touch-mode .heart{width:11px;height:10px}
+ .touch-mode .resource-row{font-size:9px;gap:4px}.touch-mode .resource-row strong{font-size:11px}
+ .touch-mode #upgrade-label,.touch-mode .resource-divider,.touch-mode .perk-status{display:none}
+ .touch-mode .shield-status{font-size:9px;margin-top:3px}
+ .touch-mode .room-hud{top:max(10px,env(safe-area-inset-top));min-width:180px;max-width:calc(100% - 410px);padding:6px 8px;background:#211c29a8;border-radius:10px}
+ .touch-mode .room-index{font-size:8px;letter-spacing:0}.touch-mode .room-hud h1{font-size:15px;letter-spacing:2px;margin:3px 0}.touch-mode #remaining-label{font-size:9px}
+ .touch-mode .minimap{right:max(67px,calc(env(safe-area-inset-right) + 55px));top:max(10px,env(safe-area-inset-top));width:130px;border-width:1px;border-radius:9px;padding:7px;background:#201e2bbd;pointer-events:none}
+ .touch-mode .map-heading{font-size:9px}.touch-mode .map-heading small{font-size:8px}.touch-mode .map-nodes{margin:7px 0 0;gap:3px}.touch-mode .map-node{height:21px;font-size:9px}.touch-mode .map-nodes::before{top:10px}.touch-mode .map-legend{display:none}
+ .touch-mode .map-nodes.branch-map{height:76px;margin:0}.touch-mode .branch-map .map-node{width:20px;height:17px;font-size:8px}
+ .touch-mode .boss-hud{top:max(83px,calc(env(safe-area-inset-top) + 73px));width:280px;padding:6px 10px;background:#251d2bd4;border-width:1px;border-radius:8px}
+ .touch-mode .boss-track{height:5px;margin:5px 0}.touch-mode .boss-hud small{font-size:8px}
+ .touch-mode .bottom-hud{left:50%;right:auto;transform:translateX(-50%);bottom:max(12px,env(safe-area-inset-bottom));width:260px;display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
+ .touch-mode .weapon-hud{min-width:0;padding:5px 9px;border-width:1px;border-radius:8px;background:#25212b9c}.touch-mode .weapon-icon{width:40px;height:25px}.touch-mode .weapon-hud strong{font-size:10px}.touch-mode .weapon-hud div>span{font-size:8px}
+ .touch-mode .interaction-hint{padding:5px 8px;font-size:9px;width:auto;max-width:260px;order:0;background:#24202bbb;border-radius:6px;text-align:center}.touch-mode .interaction-hint kbd{display:none}
+ .touch-mode .menu-controls{display:none}
+ .touch-mode .room-notice,.touch-mode .game-window:has(.boss-hud:not([hidden])) .room-notice{top:auto;bottom:107px;font-size:10px;max-width:48%;padding:7px 12px;text-align:center}
+ .touch-mode .home-layout{grid-template-columns:1fr 1fr;gap:26px}.touch-mode .home-story h1{font-size:27px;margin:8px 0}.touch-mode .hero-stage{display:none}.touch-mode .home-story>p{font-size:11px}.touch-mode .home-action-heading{display:none}.touch-mode .home-menu-grid{margin-top:12px;gap:8px}.touch-mode .home-menu-grid button{padding:10px}.touch-mode .home-loadout{margin-top:10px;padding-top:8px}
+ .touch-mode .chapter-route{display:grid;grid-template-columns:1fr 36px 1fr;max-height:none;gap:8px}.touch-mode .chapter-card{height:auto;min-height:230px}.touch-mode .chapter-arrow{height:auto}.touch-mode .chapter-arrow>span{transform:none}.touch-mode .selection-brief{grid-template-columns:1fr 170px}.touch-mode .expedition-heading{margin-bottom:12px}
+ .touch-mode .reward-options{margin:12px 0}.touch-mode .reward-options button{padding:12px 8px}.touch-mode .reward-icon{font-size:24px;height:28px}.touch-mode .menu-card{padding:18px 24px}.touch-mode .menu-card h2{font-size:22px;margin:7px 0}.touch-mode .menu-card p{margin:8px 0 12px}
+}
+@media(orientation:landscape) and (max-width:740px){
+ #move-pad{width:108px;height:108px;left:max(15px,env(safe-area-inset-left));bottom:18px}#move-knob{width:43px;height:43px}
+ #touch-attack{width:96px;height:96px;right:max(16px,env(safe-area-inset-right));bottom:18px}#touch-interact{width:68px;height:68px;right:max(128px,calc(env(safe-area-inset-right) + 111px));bottom:20px}.touch-action strong{font-size:13px}.touch-action small{font-size:8px}.touch-action .touch-glyph{font-size:20px}
+ .touch-mode .hero-hud{min-width:164px;max-width:185px;padding:7px}.touch-mode .portrait{display:none}.touch-mode .room-hud{max-width:210px;min-width:155px}.touch-mode .room-index{font-size:7px}.touch-mode .room-hud h1{font-size:13px}.touch-mode .minimap{width:110px}.touch-mode .boss-hud{width:250px;top:78px}.touch-mode .bottom-hud{width:200px}.touch-mode .room-notice{max-width:45%}
+}
