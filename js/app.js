@@ -3,6 +3,7 @@
   const $=id=>document.getElementById(id),world=new DungeonCore.World(DungeonMaps),keys=new Set(),W=DungeonWeapons;
   let storage;try{storage=window.localStorage;}catch{storage=null;}
   const store=new DungeonProfile.Store(storage),audio=new DungeonAudio(store.data.settings);
+  const viewport=new DungeonViewport.Stage($('game-window'));
   const screens={paused:$('pause-screen'),reward:$('reward-screen'),shop:$('shop-screen'),'chapter-intro':$('chapter-screen'),'chapter-complete':$('result-screen'),won:$('result-screen'),lost:$('result-screen'),error:$('error-screen')};
   const names={power:'伤害强化',rapid:'快速供能',repair:'应急治疗'},types={combat:'战',shop:'商',elite:'精',rest:'营',boss:'王'};
   let renderer,ready=false,last=0,previous='',noticeTimer=0,message='准备好后再继续。',recorded=false,menu,touch=null;
@@ -13,7 +14,7 @@
   function start(selection={chapter:1,difficulty:'normal'}){if(!ready)return;if(!DungeonProgression.canEnter(store.data.progress,selection.chapter,selection.difficulty)){menu.toast('请先通关前置章节，再挑战这里。');return;}keys.clear();touch?.reset();if(!world.start(store.data.equipped,{...selection,progress:store.data.progress}))return;recorded=false;previous='';audio.unlock();menu.show('game');last=performance.now();notice(world.chapter===2?'工坊独立挑战：已发放固定补给，留意机械预警。':world.difficulty==='hard'?'困难试炼：敌人更耐打，利用掩体并保持走位。':'近战追得快，射手移动慢。保持走位，留意蓄力。',4);sync();}
   function resume(){keys.clear();touch?.reset();world.resume();menu.show('game');last=performance.now();sync();}
   menu=new DungeonMenu({store,audio,onNavigate:navigate,onNew:start,onContinue:()=>{if(world.state==='paused')world.resume();menu.show('game');last=performance.now();sync();},hasRun});
-  touch=new DungeonTouch.Controller({onInteract:interact,onPause:()=>$('pause-button').click(),onPortrait:()=>{if(menu.page==='game')pause('请横屏游玩，准备好后点击继续。');},onGesture:()=>audio.unlock(),onHome:()=>menu.show('home')});
+  touch=new DungeonTouch.Controller({onInteract:interact,onPause:()=>$('pause-button').click(),viewport,onGesture:()=>audio.unlock()});
   for(let i=0;i<world.player.maxHp;i++){const h=document.createElement('span');h.className='heart';$('hearts').append(h);}
   let mapChapter=0;
   function chapterMap(){
@@ -116,7 +117,7 @@
   });
   window.addEventListener('keyup',event=>keys.delete(event.code));window.addEventListener('blur',()=>pause('你离开了窗口，游戏已自动暂停。'));document.addEventListener('visibilitychange',()=>{if(document.hidden)pause('页面已隐藏，游戏自动暂停。');});
   function frame(now){const dt=last?Math.min(.05,(now-last)/1000):0;last=now;
-    if(ready){if(touch?.portrait&&menu.page==='game'&&active())pause('请横屏游玩，准备好后点击继续。');if(menu.page==='game'&&!$('confirm-dialog').open){const axis=(positive,negative)=>Number(positive.some(k=>keys.has(k)))-Number(negative.some(k=>keys.has(k)));const movement=DungeonTouch.combine({x:axis(['KeyD','ArrowRight'],['KeyA','ArrowLeft']),y:axis(['KeyS','ArrowDown'],['KeyW','ArrowUp'])},touch?.axis||{x:0,y:0});world.tick(dt,{...movement,fire:!touch?.mobile||touch.attacking});if(noticeTimer>0&&active()){noticeTimer-=dt;if(noticeTimer<=0)$('room-notice').hidden=true;}}
+    if(ready){if(menu.page==='game'&&!$('confirm-dialog').open){const axis=(positive,negative)=>Number(positive.some(k=>keys.has(k)))-Number(negative.some(k=>keys.has(k)));const movement=DungeonTouch.combine({x:axis(['KeyD','ArrowRight'],['KeyA','ArrowLeft']),y:axis(['KeyS','ArrowDown'],['KeyW','ArrowUp'])},touch?.axis||{x:0,y:0});world.tick(dt,{...movement,fire:!touch?.mobile||touch.attacking});if(noticeTimer>0&&active()){noticeTimer-=dt;if(noticeTimer<=0)$('room-notice').hidden=true;}}
       const events=world.events.splice(0);for(const event of events){if(event.type==='chapter-clear'&&store.clearChapter(event.chapter,event.difficulty)){menu.renderStorage();notice(event.chapter===1&&event.difficulty==='normal'?'已解锁：第一章困难 / 第二章普通':event.chapter===2&&event.difficulty==='normal'?'已解锁：第二章困难':'困难试炼已通关，记录已保存',5);}audio.play(event.type,world.weapon.id);if(event.type==='guardian-enrage')notice('守卫能量失控！预警后每0.5秒一轮，寻找弹幕间隙。',3);if(event.type==='guardian-summon'&&event.count>0)notice(`守卫召唤了${event.count}只骷髅，现身后会近战追击！`,3);if(event.type==='phase')notice(world.chapter===2?'总装监工进入第二阶段！':'守卫进入第二阶段！',2);if(event.type==='wave')notice(`${world.map.name} · 第 ${event.wave} / ${event.total} 波`,2);}
       renderer.settings=store.data.settings;sync();if(menu.page==='game')renderer.draw(world,now/1000);
     }requestAnimationFrame(frame);

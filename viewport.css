@@ -1,0 +1,15 @@
+/* Keep a landscape game stage inside portrait-only embedded browsers. */
+.touch-mode .game-window{position:fixed;left:var(--view-left,0px);top:var(--view-top,0px);width:var(--stage-width,100vw);height:var(--stage-height,100dvh);margin:0;transform:none;transform-origin:0 0}
+.touch-mode.stage-rotated .game-window{transform:translateX(var(--screen-width)) rotate(90deg)}
+.touch-mode.stage-rotated .front-shell,.touch-mode.stage-rotated .front-shell *,.touch-mode.stage-rotated .menu-card,.touch-mode.stage-rotated .menu-card *,.touch-mode.stage-rotated #confirm-dialog,.touch-mode.stage-rotated #confirm-dialog *{touch-action:none}
+.touch-mode #front-chapters{overflow:visible}
+.touch-mode .menu-card{max-height:calc(var(--stage-height) - 24px)}
+.touch-mode .warehouse-layout{grid-template-columns:210px 1fr;gap:20px}
+.touch-mode .weapon-list{flex-direction:column}.touch-mode .weapon-choice{display:grid;grid-template-columns:65px 1fr;min-height:76px}
+.touch-mode .settings-grid{grid-template-columns:1fr 1fr;gap:16px}
+.touch-mode .guide-grid{grid-template-columns:1fr 1fr}
+.touch-mode .front-page{padding-top:16px;padding-bottom:16px}
+.touch-mode .settings-panel{padding:16px}
+.touch-mode.compact-stage .warehouse-layout{grid-template-columns:170px 1fr;gap:12px}
+.touch-mode.stage-rotated #confirm-dialog{position:fixed;inset:auto;left:calc(var(--view-left) + var(--screen-width)/2);top:calc(var(--view-top) + var(--screen-height)/2);width:min(480px,calc(var(--stage-width) - 32px));max-width:none;max-height:calc(var(--stage-height) - 24px);overflow:auto;margin:0;transform:translate(-50%,-50%) rotate(90deg);transform-origin:center;padding:20px 24px}
+.touch-mode.stage-rotated #confirm-dialog h2{font-size:22px;margin:4px 0 10px}.touch-mode.stage-rotated #confirm-dialog p{margin:10px 0}

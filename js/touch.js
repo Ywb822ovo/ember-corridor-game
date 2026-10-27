@@ -15,10 +15,10 @@
     return {label:'交互',ready:false};
   }
   class Controller{
-    constructor({onInteract,onPause,onPortrait,onGesture,onHome}){
-      this.mobile=matchMedia('(any-pointer: coarse)').matches||navigator.maxTouchPoints>0;
+    constructor({onInteract,onPause,onGesture,viewport}){
+      this.viewport=viewport;this.mobile=viewport.mobile;
       this.enabled=false;this.axis={x:0,y:0};this.attacking=false;this.pointers={};
-      const $=id=>document.getElementById(id);this.root=$('touch-controls');this.stick=$('move-pad');this.knob=$('move-knob');this.attack=$('touch-attack');this.interact=$('touch-interact');this.rotate=$('rotate-tip');
+      const $=id=>document.getElementById(id);this.root=$('touch-controls');this.stick=$('move-pad');this.knob=$('move-knob');this.attack=$('touch-attack');this.interact=$('touch-interact');
       document.documentElement.classList.toggle('touch-mode',this.mobile);
       const capture=(el,id)=>{try{el.setPointerCapture(id);}catch{}};
       const down=(kind,el,event)=>{
@@ -38,24 +38,22 @@
       this.stick.addEventListener('pointermove',e=>{if(this.pointers.move===e.pointerId&&this.enabled){e.preventDefault();this.move(e);}});
       this.interact.addEventListener('click',()=>{if(this.enabled&&!this.interact.disabled){onGesture();onInteract();}});
       $('touch-pause').addEventListener('click',()=>{onGesture();onPause();});
-      $('rotate-home').addEventListener('click',onHome);
-      this.resize=()=>{this.portrait=this.mobile&&innerHeight>innerWidth;this.reset();if(this.portrait)onPortrait();};
-      addEventListener('resize',this.resize);addEventListener('orientationchange',this.resize);addEventListener('blur',()=>this.reset());document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset();});
-      this.portrait=this.mobile&&innerHeight>innerWidth;
+      this.resize=()=>this.reset();
+      addEventListener('dungeonviewportchange',this.resize);addEventListener('blur',()=>this.reset());document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset();});
     }
-    move(event){const rect=this.stick.getBoundingClientRect(),v=vector(event.clientX-rect.x-rect.width/2,event.clientY-rect.y-rect.height/2,rect.width*.32);this.axis={x:v.x,y:v.y};this.knob.style.transform=`translate(${v.px}px,${v.py}px)`;}
+    move(event){const rect=this.stick.getBoundingClientRect(),local=DungeonViewport.localDelta(event.clientX-rect.x-rect.width/2,event.clientY-rect.y-rect.height/2,this.viewport.rotated),v=vector(local.x,local.y,this.stick.clientWidth*.32);this.axis={x:v.x,y:v.y};this.knob.style.transform=`translate(${v.px}px,${v.py}px)`;}
     zeroStick(){this.axis={x:0,y:0};this.knob.style.transform='translate(0,0)';}
     reset(){this.zeroStick();this.attacking=false;this.attack.classList.remove('pressed');this.attack.setAttribute('aria-pressed','false');for(const [kind,id]of Object.entries(this.pointers)){const el=kind==='move'?this.stick:this.attack;try{if(el.hasPointerCapture(id))el.releasePointerCapture(id);}catch{}}this.pointers={};}
     update(world,page){
       const game=page==='game',active=['combat','cleared','safe'].includes(world.state);
-      this.enabled=this.mobile&&game&&active&&!this.portrait;
+      this.enabled=this.mobile&&game&&active;
       if(!this.enabled)this.reset();
-      this.root.hidden=!this.enabled;this.rotate.hidden=!(this.mobile&&game&&this.portrait);
-      document.getElementById('touch-pause').hidden=!(this.mobile&&game&&!this.portrait&&active);
+      this.root.hidden=!this.enabled;
+      document.getElementById('touch-pause').hidden=!(this.mobile&&game&&active);
       const action=target(world);this.interact.querySelector('strong').textContent=action.label;this.interact.querySelector('small').textContent=action.ready?'点击交互':'靠近目标';this.interact.disabled=!action.ready;
       this.attack.disabled=world.state!=='combat';this.attack.querySelector('small').textContent=world.state==='combat'?'按住射击':'暂无敌人';
     }
-    snapshot(){return {mobile:this.mobile,portrait:this.portrait,enabled:this.enabled,axis:{...this.axis},attacking:this.attacking};}
+    snapshot(){return {mobile:this.mobile,portrait:this.viewport.rotated,viewport:this.viewport.snapshot(),enabled:this.enabled,axis:{...this.axis},attacking:this.attacking};}
   }
   const api={vector,combine,target,Controller};if(typeof module==='object'&&module.exports)module.exports=api;else root.DungeonTouch=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
