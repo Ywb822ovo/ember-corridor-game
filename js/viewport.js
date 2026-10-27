@@ -29,6 +29,7 @@
     }
     installScrolling(){
       document.addEventListener('pointerdown',event=>{
+        this.suppressedClick=null;
         if(!this.rotated||event.pointerType!=='touch'||event.target.closest('input,select,textarea')||!event.target.closest('.front-shell,.menu-card,dialog'))return;
         let el=event.target;
         while(el&&el!==document.body){if(el.scrollHeight>el.clientHeight+1&&/auto|scroll/.test(getComputedStyle(el).overflowY))break;el=el.parentElement;}

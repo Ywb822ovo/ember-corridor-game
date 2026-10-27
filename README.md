@@ -1,6 +1,6 @@
 # 余烬回廊 MVP0.13 · 页面内自动横屏
 
-新版试玩：https://ywb822ovo.github.io/ember-corridor-game/?v=0.13
+新版试玩：https://ywb822ovo.github.io/ember-corridor-game/?v=0.13.1
 
 这是两章地牢射击课程原型。手机打开后，页面会直接以横向游戏布局显示首页、选关与战斗；浏览器保持竖屏也可游玩，不再显示必须旋转手机的阻断页面，不依赖屏幕方向锁定或全屏。
 
