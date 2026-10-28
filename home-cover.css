@@ -1,45 +1,50 @@
-/* The user-selected illustration is displayed only on the start page. */
-.front-shell.home-cover{background-color:#080e16;background-image:linear-gradient(90deg,#050b13b8 0%,#050b1366 32%,#050b1314 57%,#050b1300 78%),url('assets/home-cover.png');background-size:cover;background-position:center bottom;background-repeat:no-repeat}
+/* Centered title and menu; preserve the right-hand subject when cropping. */
+.front-shell.home-cover{background-color:#070d15;background-image:radial-gradient(ellipse at 50% 47%,#030913bd 0%,#0309138c 26%,#03091333 45%,#03091300 65%),url('assets/home-cover.png');background-size:100% 100%,cover;background-position:center,right bottom;background-repeat:no-repeat}
 .home-cover::before{border-color:#c9a37130}
 .home-cover .front-header,.home-cover .front-footer{z-index:1}
 .home-cover .front-edition{color:#e4c59f;text-shadow:0 1px 5px #000}
 .home-cover .front-page{position:relative;z-index:1}
-.home-cover .home-layout{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:22px;width:360px;max-width:43%;height:100%;margin:0 0 0 3%}
-.home-cover .home-story h1{font-size:34px;letter-spacing:2px;line-height:1.35;margin:10px 0 12px;text-shadow:0 2px 12px #0009}
-.home-cover .home-story>p{font-size:12px;line-height:1.8;color:#c3c0bb;text-shadow:0 1px 5px #000}
-.home-cover .eyebrow{color:#cfb58c}
+.home-cover .home-layout{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:25px;width:440px;max-width:90%;height:100%;margin:0 auto;text-align:center}
+.home-cover .home-story h1{font-size:64px;font-weight:700;letter-spacing:10px;line-height:1.2;margin:10px 0 12px;color:#f4dfb8;text-shadow:0 3px 3px #05090e,0 0 30px #060c15}
+.home-cover .home-story>p{font-size:17px;line-height:1.7;color:#dfd9cc;margin:0;text-shadow:0 2px 6px #000}
+.home-cover .eyebrow{font-size:13px;letter-spacing:6px;color:#d1b78e}
 .home-cover .hero-stage,.home-cover .home-action-heading{display:none}
 .home-cover .home-actions{width:100%}
-.home-cover .home-actions>.primary-button{min-height:54px;padding:15px 20px;box-shadow:0 4px 20px #0003}
-.home-cover .home-menu-grid{gap:10px;margin-top:14px}
-.home-cover .home-menu-grid button{min-height:62px;padding:13px;background:#101a26bd;border-color:#8f79615c;backdrop-filter:blur(5px)}
-.home-cover .home-menu-grid button:hover{background:#26303bcf;border-color:#cfad76}
-.home-cover .home-menu-grid strong{color:#edddc5}
-.home-cover .home-menu-grid small{color:#b0b6bd}
-.home-cover .continue-button{background:#1c352bd4;backdrop-filter:blur(5px)}
-.home-cover .home-loadout{margin-top:14px;padding-top:11px;border-color:#baa17b50;color:#e3d5c0}
-.home-cover .home-loadout small{color:#aeb3b7}
+.home-cover .home-actions>.primary-button{min-height:68px;padding:16px 24px;font-size:24px;box-shadow:0 4px 24px #0005}
+.home-cover .home-actions>.primary-button strong{font-size:24px;letter-spacing:5px}
+.home-cover .home-actions .action-number{font-size:12px!important}
+.home-cover .home-menu-grid{gap:12px;margin-top:16px}
+.home-cover .home-menu-grid button{min-height:68px;padding:14px 16px;background:#101a26bd;border-color:#9d876c80;backdrop-filter:blur(5px);text-align:left}
+.home-cover .home-menu-grid button:hover{background:#26303bdb;border-color:#d7b682}
+.home-cover .home-menu-grid strong{color:#f3e4cc;font-size:20px;font-weight:600;letter-spacing:1px}
+.home-cover .home-menu-grid small{color:#bac0c7;font-size:12px}
+.home-cover .home-menu-grid button>span{font-size:24px}
+.home-cover .continue-button{min-height:54px;font-size:20px;padding:12px 18px;background:#1c352be0;backdrop-filter:blur(5px)}
+.home-cover .continue-button span{font-size:11px;margin-top:5px}
+.home-cover .home-loadout{margin-top:15px;padding-top:11px;border-color:#baa17b66;color:#e3d5c0;text-align:left}
+.home-cover .home-loadout small{color:#c2c4c4;font-size:11px}.home-cover .home-loadout strong{font-size:14px}
 .home-cover .front-footer{border-color:#c1a17a33;text-shadow:0 1px 5px #000}
 .home-cover .front-footer button{color:#dac39d}
-.touch-mode .front-shell.home-cover{padding-top:10px;padding-bottom:8px}
-.touch-mode .home-cover .front-header{min-height:40px}
-.touch-mode .home-cover #front-home{padding:8px 0}
-.touch-mode .home-cover .home-layout{width:380px;max-width:54%;height:auto;min-height:0;gap:8px;margin-left:2%}
-.touch-mode .home-cover .home-story h1{font-size:23px;line-height:1.25;margin:3px 0 7px;letter-spacing:1px}
+.touch-mode .front-shell.home-cover{padding-top:8px;padding-bottom:7px}
+.touch-mode .home-cover .front-header{min-height:36px}
+.touch-mode .home-cover #front-home{padding:5px 0;flex:1 0 auto;display:flex;align-items:center;justify-content:center}
+.touch-mode .home-cover .home-layout{width:344px;max-width:85%;height:auto;min-height:0;gap:12px;margin:0 auto}
+.touch-mode .home-cover .home-story h1{font-size:42px;letter-spacing:7px;line-height:1.15;margin:0}
 .touch-mode .home-cover .home-story>.eyebrow,.touch-mode .home-cover .home-story>p{display:none}
-.touch-mode .home-cover .home-actions>.primary-button{min-height:44px;padding:10px 15px;font-size:13px}
-.touch-mode .home-cover .home-menu-grid{margin-top:8px;gap:7px}
-.touch-mode .home-cover .home-menu-grid button{min-height:44px;padding:8px 10px;grid-template-columns:22px 1fr;gap:3px 7px}
-.touch-mode .home-cover .home-menu-grid button>span{font-size:16px}
-.touch-mode .home-cover .home-menu-grid strong{font-size:11px}
+.touch-mode .home-cover .home-actions>.primary-button{min-height:50px;padding:10px 16px;font-size:22px}
+.touch-mode .home-cover .home-actions>.primary-button strong{font-size:22px;letter-spacing:4px}
+.touch-mode .home-cover .home-menu-grid{margin-top:9px;gap:8px}
+.touch-mode .home-cover .home-menu-grid button{min-height:45px;padding:8px 11px;grid-template-columns:22px 1fr;gap:3px 7px}
+.touch-mode .home-cover .home-menu-grid button>span{font-size:19px}
+.touch-mode .home-cover .home-menu-grid strong{font-size:16px;letter-spacing:0}
 .touch-mode .home-cover .home-menu-grid small{display:none}
-.touch-mode .home-cover .home-loadout{margin-top:7px;padding-top:5px;gap:9px;font-size:10px}
+.touch-mode .home-cover .home-loadout{margin-top:7px;padding-top:5px;gap:9px}
 .touch-mode .home-cover .home-loadout>div:first-child{width:34px;height:20px}
 .touch-mode .home-cover .home-loadout small{display:none}
-.touch-mode .home-cover .home-loadout strong{font-size:10px}
-.touch-mode .home-cover .continue-button{min-height:40px;padding:9px 12px;margin-top:7px;font-size:10px}
-.touch-mode .home-cover .continue-button span{font-size:8px}
-.touch-mode .home-cover .front-footer{margin-top:7px;min-height:23px;padding-top:6px}
-.touch-mode.compact-stage .home-cover .home-layout{max-width:55%;width:330px;margin-left:0}
-.touch-mode.compact-stage .home-cover .home-story h1{font-size:21px}
-@media(max-height:700px) and (pointer:fine){.home-cover .home-layout{gap:12px}.home-cover .home-story h1{font-size:28px;margin:5px 0}.home-cover .home-menu-grid button{min-height:54px;padding:10px}.home-cover .home-loadout{margin-top:9px;padding-top:8px}}
+.touch-mode .home-cover .home-loadout strong{font-size:12px}
+.touch-mode .home-cover .continue-button{min-height:42px;padding:8px 13px;margin-top:7px;font-size:18px;text-align:center}
+.touch-mode .home-cover .continue-button span{display:none}
+.touch-mode .home-cover .front-footer{margin-top:6px;min-height:22px;padding-top:5px}
+.touch-mode.compact-stage .home-cover .home-layout{width:320px;max-width:85%;gap:10px}
+.touch-mode.compact-stage .home-cover .home-story h1{font-size:38px}
+@media(max-height:700px) and (pointer:fine){.home-cover .home-layout{gap:15px}.home-cover .home-story h1{font-size:48px;margin:6px 0}.home-cover .home-story>p{font-size:15px}.home-cover .home-actions>.primary-button{min-height:60px}.home-cover .home-menu-grid button{min-height:60px;padding:10px 14px}.home-cover .home-loadout{margin-top:9px;padding-top:8px}}
