@@ -27,7 +27,7 @@
       if(!['home','chapters','warehouse','settings','guide','records','credits','game'].includes(page))return;
       this.page=page;this.returnTo=returnTo;this.onNavigate(page);
       if(page==='game'){clearTimeout(this.toastTimer);$('toast').hidden=true;}
-      $('front-shell').hidden=page==='game';$('game-window').classList.toggle('menu-open',page!=='game');
+      $('front-shell').hidden=page==='game';$('front-shell').classList.toggle('home-cover',page==='home');$('game-window').classList.toggle('menu-open',page!=='game');
       for(const name of ['home','chapters','warehouse','settings','guide','records','credits'])$(`front-${name}`).hidden=name!==page;
       $('front-back').hidden=page==='home';$('front-back').textContent=returnTo==='game'?'← 返回冒险':'← 返回';
       this.render();if(page==='warehouse')this.renderWarehouse();if(page==='settings')this.renderSettings();if(page==='records')this.renderRecords();

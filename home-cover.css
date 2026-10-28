@@ -1,0 +1,45 @@
+/* The user-selected illustration is displayed only on the start page. */
+.front-shell.home-cover{background-color:#080e16;background-image:linear-gradient(90deg,#050b13b8 0%,#050b1366 32%,#050b1314 57%,#050b1300 78%),url('assets/home-cover.png');background-size:cover;background-position:center bottom;background-repeat:no-repeat}
+.home-cover::before{border-color:#c9a37130}
+.home-cover .front-header,.home-cover .front-footer{z-index:1}
+.home-cover .front-edition{color:#e4c59f;text-shadow:0 1px 5px #000}
+.home-cover .front-page{position:relative;z-index:1}
+.home-cover .home-layout{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:22px;width:360px;max-width:43%;height:100%;margin:0 0 0 3%}
+.home-cover .home-story h1{font-size:34px;letter-spacing:2px;line-height:1.35;margin:10px 0 12px;text-shadow:0 2px 12px #0009}
+.home-cover .home-story>p{font-size:12px;line-height:1.8;color:#c3c0bb;text-shadow:0 1px 5px #000}
+.home-cover .eyebrow{color:#cfb58c}
+.home-cover .hero-stage,.home-cover .home-action-heading{display:none}
+.home-cover .home-actions{width:100%}
+.home-cover .home-actions>.primary-button{min-height:54px;padding:15px 20px;box-shadow:0 4px 20px #0003}
+.home-cover .home-menu-grid{gap:10px;margin-top:14px}
+.home-cover .home-menu-grid button{min-height:62px;padding:13px;background:#101a26bd;border-color:#8f79615c;backdrop-filter:blur(5px)}
+.home-cover .home-menu-grid button:hover{background:#26303bcf;border-color:#cfad76}
+.home-cover .home-menu-grid strong{color:#edddc5}
+.home-cover .home-menu-grid small{color:#b0b6bd}
+.home-cover .continue-button{background:#1c352bd4;backdrop-filter:blur(5px)}
+.home-cover .home-loadout{margin-top:14px;padding-top:11px;border-color:#baa17b50;color:#e3d5c0}
+.home-cover .home-loadout small{color:#aeb3b7}
+.home-cover .front-footer{border-color:#c1a17a33;text-shadow:0 1px 5px #000}
+.home-cover .front-footer button{color:#dac39d}
+.touch-mode .front-shell.home-cover{padding-top:10px;padding-bottom:8px}
+.touch-mode .home-cover .front-header{min-height:40px}
+.touch-mode .home-cover #front-home{padding:8px 0}
+.touch-mode .home-cover .home-layout{width:380px;max-width:54%;height:auto;min-height:0;gap:8px;margin-left:2%}
+.touch-mode .home-cover .home-story h1{font-size:23px;line-height:1.25;margin:3px 0 7px;letter-spacing:1px}
+.touch-mode .home-cover .home-story>.eyebrow,.touch-mode .home-cover .home-story>p{display:none}
+.touch-mode .home-cover .home-actions>.primary-button{min-height:44px;padding:10px 15px;font-size:13px}
+.touch-mode .home-cover .home-menu-grid{margin-top:8px;gap:7px}
+.touch-mode .home-cover .home-menu-grid button{min-height:44px;padding:8px 10px;grid-template-columns:22px 1fr;gap:3px 7px}
+.touch-mode .home-cover .home-menu-grid button>span{font-size:16px}
+.touch-mode .home-cover .home-menu-grid strong{font-size:11px}
+.touch-mode .home-cover .home-menu-grid small{display:none}
+.touch-mode .home-cover .home-loadout{margin-top:7px;padding-top:5px;gap:9px;font-size:10px}
+.touch-mode .home-cover .home-loadout>div:first-child{width:34px;height:20px}
+.touch-mode .home-cover .home-loadout small{display:none}
+.touch-mode .home-cover .home-loadout strong{font-size:10px}
+.touch-mode .home-cover .continue-button{min-height:40px;padding:9px 12px;margin-top:7px;font-size:10px}
+.touch-mode .home-cover .continue-button span{font-size:8px}
+.touch-mode .home-cover .front-footer{margin-top:7px;min-height:23px;padding-top:6px}
+.touch-mode.compact-stage .home-cover .home-layout{max-width:55%;width:330px;margin-left:0}
+.touch-mode.compact-stage .home-cover .home-story h1{font-size:21px}
+@media(max-height:700px) and (pointer:fine){.home-cover .home-layout{gap:12px}.home-cover .home-story h1{font-size:28px;margin:5px 0}.home-cover .home-menu-grid button{min-height:54px;padding:10px}.home-cover .home-loadout{margin-top:9px;padding-top:8px}}
