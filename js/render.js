@@ -15,21 +15,22 @@
       const ty=roomH<vh?(roomH-vh)/2:Math.max(-20,Math.min(roomH-vh+20,p.y-vh*.54));
       if(this.camera.room!==world.roomIndex||world.state==='title'){this.camera.x=tx;this.camera.y=ty;this.camera.room=world.roomIndex;}
       else{const smooth=1-Math.exp(-dt*14);this.camera.x+=(tx-this.camera.x)*smooth;this.camera.y+=(ty-this.camera.y)*smooth;}
-      this.view={zoom,cx:this.camera.x,cy:this.camera.y};
-      c.setTransform(this.dpr,0,0,this.dpr,0,0);c.fillStyle='#37232b';c.fillRect(0,0,w,h);
+      this.view={zoom,cx:this.camera.x,cy:this.camera.y,shakeX:0,shakeY:0};
+      c.setTransform(this.dpr,0,0,this.dpr,0,0);c.fillStyle=world.map.workshopV2?'#101d2d':'#37232b';c.fillRect(0,0,w,h);
       c.save();c.scale(zoom,zoom);c.translate(-this.camera.x,-this.camera.y);c.imageSmoothingEnabled=false;
-      const hurt=world.effects.find(e=>e.type==='hurt');if(this.settings?.shake&&!this.reduced&&world.state==='combat'&&hurt){const amount=3*hurt.life/hurt.maxLife;c.translate(Math.sin(time*83)*amount,Math.cos(time*71)*amount);}
+      const hurt=world.effects.find(e=>e.type==='hurt');if(this.settings?.shake&&!this.reduced&&world.state==='combat'&&hurt){const amount=3*hurt.life/hurt.maxLife;this.view.shakeX=Math.sin(time*83)*amount;this.view.shakeY=Math.cos(time*71)*amount;c.translate(this.view.shakeX,this.view.shakeY);}
+      const factoryShake=this.workshop.shake?.(world)||0;if(this.settings?.shake&&!this.reduced&&world.state==='combat'&&factoryShake){const dx=Math.sin(world.roomTime*81)*factoryShake,dy=Math.cos(world.roomTime*67)*factoryShake;this.view.shakeX+=dx;this.view.shakeY+=dy;c.translate(dx,dy);}
       const map=world.map,mw=map.cols*map.tileSize,mh=map.rows*map.tileSize;
-      if(map.chapter===2)this.workshop.floor(map);else c.drawImage(this.images.rooms[world.map.imageIndex??world.roomIndex],0,0,mw,mh);
+      if(map.chapter===2)this.workshop.floor(map);else if(world.layout&&map.id!==5){this.ruins??=new DungeonRuinsRenderer();this.ruins.floor(c,map);}else c.drawImage(this.images.rooms[world.map.imageIndex??world.roomIndex],0,0,mw,mh);
       this.hazards(world);
       if(map.chapter===2)this.workshop.mechanisms(world);
-      const light=c.createRadialGradient(p.x,p.y,70,p.x,p.y,650);light.addColorStop(0,'#ffdda100');light.addColorStop(.65,'#3020390c');light.addColorStop(1,'#24152766');c.fillStyle=light;c.fillRect(this.camera.x,this.camera.y,vw,vh);
+      const light=c.createRadialGradient(p.x,p.y,70,p.x,p.y,650);light.addColorStop(0,'#ffdda100');light.addColorStop(.65,map.workshopV2?'#15394b0c':'#3020390c');light.addColorStop(1,map.workshopV2?'#0c1c3066':'#24152766');c.fillStyle=light;c.fillRect(this.camera.x,this.camera.y,vw,vh);
       if(['cleared','safe','shop'].includes(world.state)||world.completed[world.roomIndex]||(['shop','rest'].includes(world.map.type)&&world.state==='paused'))for(const exit of world.exits)this.portal(exit,time);
       if(map.chapter===2)this.workshop.services(world);
-      else{if(world.map.service)this.service(world.map,time);if(world.map.supply)this.service({...world.map,type:'shop',service:world.map.supply,supplyLabel:true},time);}
+      else root.DungeonWayfarers?.draw(c,world);
       this.guardian.reduced=this.reduced;this.guardian.floor(world);
       // Draw locked-shot warnings before entities. The target point stays fixed.
-      for(const e of world.enemies)if(e.windup>0&&e.aim)this.warning(world,e);
+      for(const e of world.enemies)if(e.windup>0&&(e.aim||['repairDrone','bomber','mother'].includes(e.kind)))this.warning(world,e);
       for(const e of world.enemies)if(e.kind==='pulse'&&e.mode==='burst')this.workshop.warning(world,e);
       for(const b of world.bullets){c.strokeStyle=b.pierce>1?'#40747e':'#5b3d38';c.lineWidth=b.pierce>1?7:6;c.lineCap='square';c.beginPath();c.moveTo(b.x-b.vx*(b.pierce>1?.035:.017),b.y-b.vy*(b.pierce>1?.035:.017));c.lineTo(b.x,b.y);c.stroke();c.strokeStyle=b.color||'#fff0c8';c.lineWidth=3;c.stroke();}
       const bodies=[...world.enemies.map(e=>({body:e,type:'enemy'})),{body:p,type:'hero'}].sort((a,b)=>a.body.y-b.body.y);
@@ -60,6 +61,7 @@
       for(const b of world.hostile){const r=b.radius??10;c.fillStyle=b.enraged?'#713947':'#622b43';c.beginPath();c.arc(b.x,b.y,r,0,Math.PI*2);c.fill();c.fillStyle=b.enraged?'#f1a66e':'#f56c79';c.beginPath();c.arc(b.x,b.y,Math.max(2,r-3),0,Math.PI*2);c.fill();c.fillStyle='#ffebc0';c.fillRect(b.x-1.5,b.y-2,3,3);}
       // Dedicated overlay pass: other sprites cannot cover an enemy's bar or HP value.
       for(const e of world.enemies)this.healthBar(e);
+      for(const e of world.enemies)if(e.heatTicks>0){c.fillStyle='#ffaa48';c.font='bold 10px Microsoft YaHei';c.textAlign='center';c.fillText('过热',e.x,e.y+24);}
       // A persistent marker keeps the player readable even when monsters overlap.
       c.strokeStyle='#9ce6ed';c.lineWidth=2;c.beginPath();c.ellipse(p.x,p.y+12,21,8,0,0,Math.PI*2);c.stroke();
       c.fillStyle='#2b3a4c';c.fillRect(p.x-9,p.y-58,18,15);c.fillStyle='#b7f8f5';c.font='bold 10px Microsoft YaHei';c.textAlign='center';c.fillText('你',p.x,p.y-47);
@@ -73,6 +75,7 @@
       }
       this.damageNumbers(world);
       c.restore();
+      this.workshop.reduced=this.reduced;this.workshop.overlay?.(world,w,h);
       if(['cleared','safe'].includes(world.state))this.portalArrow(world.navigationExit);
       if(hurt&&world.state==='combat'&&!this.reduced){c.fillStyle='#a22d4510';c.fillRect(0,0,w,h);}
     }
@@ -130,17 +133,9 @@
         c.font='bold 11px Microsoft YaHei';c.textAlign='center';c.fillStyle=hot?'#fff0bf':'#c7a386';c.fillText(hot?'岩浆':'已冷却',h.x+h.w/2,h.y+h.h/2+4);
       }
     }
-    service(map,time){
-      const c=this.ctx,p=map.service,rest=map.type==='rest';this.shadow(p,24);
-      c.save();c.strokeStyle=rest?'#e8ad60':'#d7c17d';c.lineWidth=2;c.beginPath();c.ellipse(p.x,p.y+13,30,11,0,0,Math.PI*2);c.stroke();
-      if(rest){
-        c.fillStyle='#744c36';c.fillRect(p.x-23,p.y+5,46,8);c.save();c.translate(p.x,p.y);if(!this.reduced)c.scale(1+Math.sin(time*7)*.06,1+Math.sin(time*9)*.08);
-        c.fillStyle='#d86b46';c.beginPath();c.moveTo(-21,6);c.lineTo(-15,-19);c.lineTo(-5,-10);c.lineTo(1,-42);c.lineTo(11,-21);c.lineTo(18,-25);c.lineTo(22,6);c.fill();c.fillStyle='#ffda8c';c.beginPath();c.moveTo(-10,6);c.lineTo(0,-23);c.lineTo(12,6);c.fill();c.restore();
-      }else{this.sprite(84,p.x,p.y,60);c.fillStyle='#c48a50';c.fillRect(p.x-29,p.y+3,58,12);c.fillStyle='#e3ba7b';c.fillRect(p.x-31,p.y,62,5);}
-      c.font='bold 12px Microsoft YaHei';c.textAlign='center';c.fillStyle='#ffe2ab';c.fillText(rest?'篝火 · 免费恢复3点':map.supplyLabel?'战前补给 · 金币消费':'旅人商店',p.x,p.y-55);c.font='10px Microsoft YaHei';c.fillText('靠近按 E',p.x,p.y+37);c.restore();
-    }
     portal(point,time){
       const c=this.ctx;c.save();c.translate(point.x,point.y);const pulse=this.reduced?1:1+Math.sin(time*3)*.08;
+      if(point.locked){c.fillStyle='#20394b';c.fillRect(-28,-38,56,52);c.strokeStyle='#ffaa48';c.lineWidth=3;c.strokeRect(-28,-38,56,52);c.font='bold 19px Microsoft YaHei';c.textAlign='center';c.fillStyle='#ffd6a1';c.fillText('工牌',0,-7);c.font='11px Microsoft YaHei';c.fillText(point.label,0,34);c.restore();return;}
       const g=c.createRadialGradient(0,0,2,0,0,55);g.addColorStop(0,'#a9faff66');g.addColorStop(1,'#4a89a900');c.fillStyle=g;c.fillRect(-60,-60,120,120);
       c.scale(pulse,pulse);c.strokeStyle='#78d6e5';c.lineWidth=5;c.beginPath();c.ellipse(0,3,30,16,0,0,Math.PI*2);c.stroke();c.strokeStyle='#c2f8e9';c.lineWidth=2;c.beginPath();c.ellipse(0,3,23,11,0,0,Math.PI*2);c.stroke();
       c.fillStyle='#85d9e975';c.fillRect(-10,-36,4,34);c.fillRect(6,-46,3,43);c.fillStyle='#d1ffff';c.fillRect(-3,-25,6,6);

@@ -14,7 +14,7 @@
     const half=(e.phase===2?3:2)+(hard?1:0),step=e.phase===2?.15:.22;return Array.from({length:half*2+1},(_,i)=>a+(i-half)*step);
   }
   function emit(w,e){
-    const origin=e.shotOrigin||C.center(e),angles=shotAngles(e,w.difficulty),speed=(e.pattern==='fan'?175:140)*P.rules(w.difficulty).projectile;
+    const origin=e.shotOrigin||C.center(e),angles=shotAngles(e,w.difficulty),speed=(e.pattern==='fan'?(e.projectileSpeed??175):(e.ringSpeed??140))*P.rules(w.difficulty).projectile;
     for(const a of angles)w.hostile.push({...origin,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,life:6,radius:e.enraged?7:10,energy:true,enraged:Boolean(e.enraged),ownerId:e.id});
     w.events.push({type:'guardian-shot',pattern:e.pattern,count:angles.length,phase:e.phase,time:w.elapsed});
   }

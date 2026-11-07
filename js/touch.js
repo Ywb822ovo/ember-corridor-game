@@ -9,8 +9,7 @@
   function combine(keyboard,touch){const x=keyboard.x+touch.x,y=keyboard.y+touch.y,len=Math.hypot(x,y);return len>1?{x:x/len,y:y/len}:{x,y};}
   function target(world){
     if(world.nearConsole)return {label:world.completed[world.roomIndex]?'已断电':world.workshop.cooldown>0?'冷却中':'断电',ready:!world.completed[world.roomIndex]&&world.workshop.cooldown<=0};
-    if(world.nearSupply)return {label:'补给',ready:true};
-    if(world.nearService)return {label:world.map.type==='shop'?'商店':world.restUsed?'已休息':world.player.hp===world.player.maxHp?'生命已满':'休息',ready:world.map.type==='shop'||(!world.restUsed&&world.player.hp<world.player.maxHp)};
+    if(world.nearSupply||world.nearService)return {label:'交谈',ready:true};
     if(world.nearPortal&&['cleared','safe'].includes(world.state))return {label:'传送',ready:true};
     return {label:'交互',ready:false};
   }

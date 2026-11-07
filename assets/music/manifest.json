@@ -1,0 +1,40 @@
+{
+  "author": "Juhani Junkala / SubspaceAudio",
+  "sourcePage": "https://opengameart.org/content/5-chiptunes-action",
+  "license": "CC0-1.0",
+  "processing": "MP3 64kbps mono 32000Hz; loudnorm I=-20 TP=-2 LRA=9; full tracks, no trims",
+  "tracks": [
+    {
+      "scene": "menu",
+      "original": "Juhani Junkala [Retro Game Music Pack] Title Screen.wav",
+      "originalSha256": "d1590ec1b4a9e0ff948437c8e1d7f416ee382600af6e454fa0452903d8de1964",
+      "file": "menu.mp3",
+      "bytes": 91129,
+      "sha256": "71b94d8897b8f1982d252201aeb92cc33fd7c681bf40a3821a3a530a54c2624e"
+    },
+    {
+      "scene": "ruins",
+      "original": "Juhani Junkala [Retro Game Music Pack] Level 1.wav",
+      "originalSha256": "6f79ae4c6f2b59baa62c46bcd264c9d157f5dca2c30845fabc3c5be4e2b64a43",
+      "file": "ruins.mp3",
+      "bytes": 594836,
+      "sha256": "b86ffd5c2be519dc62cd80ccc376ba94bc41e734690c2457ec31644a809d45ce"
+    },
+    {
+      "scene": "workshop",
+      "original": "Juhani Junkala [Retro Game Music Pack] Level 2.wav",
+      "originalSha256": "c782eccc0634db2818feee4b1f01360dd355505df036732359f2bedb7c772758",
+      "file": "workshop.mp3",
+      "bytes": 583316,
+      "sha256": "dcd4f22ae15447396e2b44587c1021db6aa58f43e0d237cda944262d2326427a"
+    },
+    {
+      "scene": "boss",
+      "original": "Juhani Junkala [Retro Game Music Pack] Level 3.wav",
+      "originalSha256": "c30ae8521119deefd0e22224310e45c07ca726c20760dd93e64e02b9b59a8e6c",
+      "file": "boss.mp3",
+      "bytes": 655892,
+      "sha256": "5f611bebcfbd46f22357faf4f7f8269ba839e5944464b7dfb4598dbe4307a5fc"
+    }
+  ]
+}

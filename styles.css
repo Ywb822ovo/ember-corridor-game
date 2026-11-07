@@ -33,3 +33,10 @@ body{display:flow-root}
 #chapter-screen{max-width:650px}#chapter-loadout{padding:12px;background:#223a43;color:#c8ece0;line-height:1.8}
 .record-row.chapter-complete{border-left-color:#9edbd0}.hearts{flex-wrap:wrap;max-width:190px}
 #result-screen .primary-button + .primary-button{margin-top:12px}
+.map-nodes.exploration-map{height:118px}
+#seed-tools{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:10px;color:#d7c5a6;margin-top:6px}
+#seed-tools[hidden]{display:none}#seed-tools button{font-size:10px;padding:3px 6px}
+#seed-controls{margin-top:14px;max-width:340px}#seed-controls label{display:block;color:#dfd6c3;font-size:14px;margin-bottom:7px}#seed-controls small{display:block;font-size:11px;color:#b6b1a7;margin-top:4px}
+#map-seed{width:100%;border:1px solid #637279;background:#18272e;color:#f0debf;border-radius:5px;padding:10px 12px;font:inherit}#map-seed:focus{outline:2px solid #dfb46e}#seed-feedback{color:#ffc4b2;min-height:18px;font-size:12px;margin:5px 0 0}
+
+.workshop-status{color:#acd9e5;font-size:11px;line-height:1.5;max-width:245px;margin-top:4px}.shop-balance+#shop-parts-balance{color:#a9dbe9}@media(max-height:500px){.workshop-status{font-size:9px;max-width:205px;line-height:1.35}}

@@ -8,7 +8,7 @@
     return `<svg viewBox="0 0 620 230" role="img" aria-label="冷蓝灯光中的工坊机械门"><defs><linearGradient id="metal-glow" x2="0" y2="1"><stop stop-color="#34454d"/><stop offset="1" stop-color="#1b202a"/></linearGradient></defs><path fill="url(#metal-glow)" d="M0 0h620v230H0z"/><g stroke="#71868a" opacity=".16">${blocks}</g><path d="M40 48h145v25H75v112M580 45H448v25h103v110" fill="none" stroke="#65747a" stroke-width="13"/><path d="M206 201V45h208v156" fill="#1a202b" stroke="#6a7676" stroke-width="10"/><path d="M228 195V65h164v130" fill="#30414b" stroke="#8b9b98" stroke-width="2"/><path d="M310 66v129M232 108h157M232 157h157" stroke="#18242e" stroke-width="5"/><path d="M260 124h100v18H260z" fill="#202a35"/><path d="M266 129h88v6h-88z" fill="#86c8cf"/><path d="M221 208h178l30 22H191z" fill="#466067" opacity=".4"/><g fill="none" stroke="#697b80" stroke-width="13"><circle cx="132" cy="137" r="33"/><circle cx="491" cy="137" r="33"/></g><g stroke="#718386" stroke-width="15"><path d="M132 91v17m0 58v17m-46-46h17m58 0h17m313-46v17m0 58v17m-46-46h17m58 0h17"/></g><g fill="#8ac8cf"><path d="M233 39h154v4H233zM84 185h24v5H84zM512 185h24v5h-24z"/></g><g fill="#d2a768"><path d="M219 51h9v15h-9M392 51h9v15h-9"/></g></svg>`;
   }
   class ChapterSelect{
-    constructor({store,onEnter,onWarehouse,onImport,audio}){Object.assign(this,{store,onEnter,onWarehouse,onImport,audio});this.selection={chapter:1,difficulty:'normal'};$('chapter-enter').addEventListener('click',()=>{const s={...this.selection};if(P.canEnter(store.data.progress,s.chapter,s.difficulty))onEnter(s);});$('selection-warehouse').addEventListener('click',onWarehouse);$('selection-import').addEventListener('click',onImport);}
+    constructor({store,onEnter,onWarehouse,onImport,audio}){Object.assign(this,{store,onEnter,onWarehouse,onImport,audio});this.selection={chapter:1,difficulty:'normal'};$('chapter-enter').addEventListener('click',()=>{const s={...this.selection};let seed=null;try{if(s.chapter===1)seed=root.DungeonExploration.parseSeed($('map-seed').value);$('seed-feedback').textContent='';}catch(error){$('seed-feedback').textContent=error.message;return;}if(P.canEnter(store.data.progress,s.chapter,s.difficulty))onEnter({...s,...(seed!==null?{seed}:{})});});$('selection-warehouse').addEventListener('click',onWarehouse);$('selection-import').addEventListener('click',onImport);}
     render(){
       const progress=this.store.data.progress,s=this.selection;
       if(!P.canEnter(progress,s.chapter,s.difficulty))this.selection={chapter:1,difficulty:'normal'};
@@ -33,6 +33,7 @@
       $('selection-weapon').innerHTML=W.icon(weapon.id);$('selection-weapon-name').textContent=weapon.name;
       $('selection-supplies').textContent=`生命 ${kit.health}/${kit.health} · ${kit.coins} 金币 · 单发伤害 ${Math.round(weapon.damage*kit.damage*100)/100}${weapon.pellets>1?' × '+weapon.pellets:''} · ${kit.perk?'特性1级':'基础装备'}`;
       $('selection-description').textContent=difficulty==='hard'?'困难：敌人生命 +35%，近战追击速度 +8%，敌方子弹速度 +10%。预警与机关伤害保持原值。':chapter===2?'独立开局提供固定补给，使用仓库武器；每次挑战重新发放，不累积上局战利品。':'通关后，同时解锁第一章困难与第二章普通；本次选关不会放弃暂停中的冒险。';
+      $('seed-controls').hidden=chapter!==1;
       $('chapter-enter').disabled=!P.canEnter(this.store.data.progress,chapter,difficulty);$('chapter-enter').textContent=`进入${chapter===1?'地牢':'工坊'} →`;
     }
   }

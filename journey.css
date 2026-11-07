@@ -1,0 +1,26 @@
+/* Room symbols and the traveler share the existing pixel-art vocabulary. */
+.map-nodes.journey-map:not(.exploration-map){height:180px}
+.journey-map .map-node{width:27px;height:27px;min-width:0;border-radius:5px;background:#1b2632;border-color:#708088;color:transparent;box-shadow:0 2px 0 #08121d99}
+.journey-map .map-node.unknown{opacity:.65;background:#202631;border-color:#59616e}
+.journey-map .map-node.cleared{opacity:1;background:#34594f;border-color:#96d3bc;box-shadow:0 0 8px #8ccbb31c}
+.journey-map .map-node.current{opacity:1;border:2px solid #ffe0a2;background:#38414c;box-shadow:0 0 0 2px #17232c,0 0 12px #e6bb6c55;z-index:3}
+.journey-map > svg.journey-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.journey-map .journey-lines line{opacity:0;stroke:#97d6be;stroke-width:2;stroke-dasharray:none;vector-effect:non-scaling-stroke}
+.journey-map .journey-lines line.complete{opacity:1}
+.journey-map .map-node .map-symbol{position:absolute;inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:23px;height:23px;overflow:visible;pointer-events:none}
+.map-symbol path{stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round}
+.map-symbol-flame path{fill:#edb364;stroke:#ffe3a1}.map-symbol-demon path{fill:#d28a86;stroke:#302c3d}
+.journey-map .map-node.current .map-symbol{left:auto;top:auto;right:-5px;bottom:-5px;transform:none;width:14px;height:14px;background:#1e2834;border-radius:4px;z-index:2}
+.journey-map .map-avatar{display:block;width:25px;height:25px;background:url('assets/sprites.png') -80px -325px/480px 440px;image-rendering:pixelated;z-index:1;filter:drop-shadow(0 1px #14202a)}
+.journey-map .map-avatar[hidden]{display:none}.journey-map .concealed .map-symbol{visibility:hidden}
+#traveler-dialog{width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 30px);overflow:auto;padding:24px 28px;border:2px solid #b89b70;border-radius:12px;color:#f0dfc5;background:#1e2936;box-shadow:0 18px 70px #0009;font:14px 'Microsoft YaHei',sans-serif}
+#traveler-dialog::backdrop{background:#0d1524ae}#traveler-dialog h2{font-size:23px;letter-spacing:2px;margin:6px 0 18px}#traveler-dialog p{line-height:1.8}
+#traveler-portrait{display:block;float:right;width:96px;height:96px;margin:-8px -8px 0 8px;image-rendering:pixelated}
+#traveler-detail{font-size:12px;color:#bbccc7;clear:both;padding-top:12px;border-top:1px solid #72858440}
+.traveler-actions{display:grid;grid-template-columns:1.3fr 1fr;align-items:center;gap:14px;margin-top:22px}.traveler-actions button{margin:0!important;min-height:44px}.traveler-actions button:disabled{opacity:.45;cursor:default}
+.touch-mode .minimap:has(.journey-map){width:164px}.touch-mode.compact-stage .minimap:has(.journey-map){width:144px}
+.touch-mode .map-nodes.journey-map{height:138px;margin:6px 0}.touch-mode .map-nodes.journey-map.exploration-map{height:104px}
+.touch-mode .journey-map .map-node{width:20px;height:20px}.touch-mode .journey-map .map-avatar{width:20px;height:20px;background-position:-64px -260px;background-size:384px 352px}.touch-mode .journey-map .map-node .map-symbol{width:18px;height:18px}.touch-mode .journey-map .map-node.current .map-symbol{width:12px;height:12px}
+.touch-mode.stage-rotated #traveler-dialog,.touch-mode.stage-rotated #traveler-dialog *{touch-action:none}
+.touch-mode.stage-rotated #traveler-dialog{position:fixed;inset:auto;left:calc(var(--view-left) + var(--screen-width)/2);top:calc(var(--view-top) + var(--screen-height)/2);width:min(440px,calc(var(--stage-width) - 32px));max-width:none;max-height:calc(var(--stage-height) - 24px);margin:0;transform:translate(-50%,-50%) rotate(90deg);transform-origin:center;padding:18px 22px}
+@media(max-height:450px){#traveler-dialog{padding:16px 22px}#traveler-dialog h2{font-size:20px;margin-bottom:10px}#traveler-dialog p{margin:8px 0}.traveler-actions{margin-top:14px}#traveler-portrait{width:76px;height:76px}}

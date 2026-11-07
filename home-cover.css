@@ -1,50 +1,77 @@
-/* Centered title and menu; preserve the right-hand subject when cropping. */
-.front-shell.home-cover{background-color:#070d15;background-image:radial-gradient(ellipse at 50% 47%,#030913bd 0%,#0309138c 26%,#03091333 45%,#03091300 65%),url('assets/home-cover.png');background-size:100% 100%,cover;background-position:center,right bottom;background-repeat:no-repeat}
-.home-cover::before{border-color:#c9a37130}
-.home-cover .front-header,.home-cover .front-footer{z-index:1}
-.home-cover .front-edition{color:#e4c59f;text-shadow:0 1px 5px #000}
-.home-cover .front-page{position:relative;z-index:1}
-.home-cover .home-layout{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:25px;width:440px;max-width:90%;height:100%;margin:0 auto;text-align:center}
-.home-cover .home-story h1{font-size:64px;font-weight:700;letter-spacing:10px;line-height:1.2;margin:10px 0 12px;color:#f4dfb8;text-shadow:0 3px 3px #05090e,0 0 30px #060c15}
-.home-cover .home-story>p{font-size:17px;line-height:1.7;color:#dfd9cc;margin:0;text-shadow:0 2px 6px #000}
-.home-cover .eyebrow{font-size:13px;letter-spacing:6px;color:#d1b78e}
-.home-cover .hero-stage,.home-cover .home-action-heading{display:none}
-.home-cover .home-actions{width:100%}
-.home-cover .home-actions>.primary-button{min-height:68px;padding:16px 24px;font-size:24px;box-shadow:0 4px 24px #0005}
-.home-cover .home-actions>.primary-button strong{font-size:24px;letter-spacing:5px}
-.home-cover .home-actions .action-number{font-size:12px!important}
-.home-cover .home-menu-grid{gap:12px;margin-top:16px}
-.home-cover .home-menu-grid button{min-height:68px;padding:14px 16px;background:#101a26bd;border-color:#9d876c80;backdrop-filter:blur(5px);text-align:left}
-.home-cover .home-menu-grid button:hover{background:#26303bdb;border-color:#d7b682}
-.home-cover .home-menu-grid strong{color:#f3e4cc;font-size:20px;font-weight:600;letter-spacing:1px}
-.home-cover .home-menu-grid small{color:#bac0c7;font-size:12px}
-.home-cover .home-menu-grid button>span{font-size:24px}
-.home-cover .continue-button{min-height:54px;font-size:20px;padding:12px 18px;background:#1c352be0;backdrop-filter:blur(5px)}
-.home-cover .continue-button span{font-size:11px;margin-top:5px}
-.home-cover .home-loadout{margin-top:15px;padding-top:11px;border-color:#baa17b66;color:#e3d5c0;text-align:left}
-.home-cover .home-loadout small{color:#c2c4c4;font-size:11px}.home-cover .home-loadout strong{font-size:14px}
-.home-cover .front-footer{border-color:#c1a17a33;text-shadow:0 1px 5px #000}
-.home-cover .front-footer button{color:#dac39d}
-.touch-mode .front-shell.home-cover{padding-top:8px;padding-bottom:7px}
-.touch-mode .home-cover .front-header{min-height:36px}
-.touch-mode .home-cover #front-home{padding:5px 0;flex:1 0 auto;display:flex;align-items:center;justify-content:center}
-.touch-mode .home-cover .home-layout{width:344px;max-width:85%;height:auto;min-height:0;gap:12px;margin:0 auto}
-.touch-mode .home-cover .home-story h1{font-size:42px;letter-spacing:7px;line-height:1.15;margin:0}
-.touch-mode .home-cover .home-story>.eyebrow,.touch-mode .home-cover .home-story>p{display:none}
-.touch-mode .home-cover .home-actions>.primary-button{min-height:50px;padding:10px 16px;font-size:22px}
-.touch-mode .home-cover .home-actions>.primary-button strong{font-size:22px;letter-spacing:4px}
-.touch-mode .home-cover .home-menu-grid{margin-top:9px;gap:8px}
-.touch-mode .home-cover .home-menu-grid button{min-height:45px;padding:8px 11px;grid-template-columns:22px 1fr;gap:3px 7px}
-.touch-mode .home-cover .home-menu-grid button>span{font-size:19px}
-.touch-mode .home-cover .home-menu-grid strong{font-size:16px;letter-spacing:0}
-.touch-mode .home-cover .home-menu-grid small{display:none}
-.touch-mode .home-cover .home-loadout{margin-top:7px;padding-top:5px;gap:9px}
-.touch-mode .home-cover .home-loadout>div:first-child{width:34px;height:20px}
-.touch-mode .home-cover .home-loadout small{display:none}
-.touch-mode .home-cover .home-loadout strong{font-size:12px}
-.touch-mode .home-cover .continue-button{min-height:42px;padding:8px 13px;margin-top:7px;font-size:18px;text-align:center}
-.touch-mode .home-cover .continue-button span{display:none}
-.touch-mode .home-cover .front-footer{margin-top:6px;min-height:22px;padding-top:5px}
-.touch-mode.compact-stage .home-cover .home-layout{width:320px;max-width:85%;gap:10px}
-.touch-mode.compact-stage .home-cover .home-story h1{font-size:38px}
-@media(max-height:700px) and (pointer:fine){.home-cover .home-layout{gap:15px}.home-cover .home-story h1{font-size:48px;margin:6px 0}.home-cover .home-story>p{font-size:15px}.home-cover .home-actions>.primary-button{min-height:60px}.home-cover .home-menu-grid button{min-height:60px;padding:10px 14px}.home-cover .home-loadout{margin-top:9px;padding-top:8px}}
+/* Lightweight 1.0 home: native text, gradients and an inline vector traveler. */
+.front-shell.home-cover{padding:44px clamp(30px,5.5vw,90px) 22px;background:#11191e;background-image:radial-gradient(ellipse at 29% 69%,#b4703820,transparent 38%),radial-gradient(ellipse at 88% 30%,#33444b24,transparent 44%);overflow:hidden}
+.home-cover::before{inset:17px;border-color:#d7b98d16}
+.home-cover::after{content:'';position:absolute;left:65%;top:16%;height:68%;width:1px;background:linear-gradient(transparent,#ba9a6c24,transparent);pointer-events:none}
+.home-cover .front-header{position:absolute;right:42px;top:28px;min-height:0;z-index:1}
+.home-cover .front-header .brand{display:none}
+.home-cover .front-edition{font-size:9px;color:#8b928f;letter-spacing:3px}
+.home-cover #front-home{padding:0;overflow:visible;position:relative;z-index:1;min-height:0}
+.home-cover .home-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:6%;height:100%;max-width:1220px;min-height:0;margin:0 auto;align-items:center}
+.home-cover .home-story{display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;height:100%;min-height:0;padding-top:9px;gap:clamp(18px,3vh,44px)}
+.home-title{position:relative;flex:none;max-width:100%;padding-left:5px}
+.title-spark{position:absolute;left:-20px;top:6px;font-size:17px;color:#e9ad62}
+.home-cover .home-story h1{font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:clamp(48px,5.7vw,90px);font-weight:900;letter-spacing:7px;line-height:1.2;margin:0;color:#f1ead9;font-style:italic;transform:skewX(-5deg);text-shadow:2px 4px 0 #0004}
+.title-underline{width:92%;height:6px;margin:11px 0 14px;background:linear-gradient(90deg,#e9ba79 0 12%,#c57746 12% 66%,#c5774600);transform:skewX(-40deg)}
+.home-wordmark{font-size:10px;letter-spacing:7px;color:#c0a78b;margin:0 0 18px;padding-left:3px}
+.home-tagline{color:#899393;font-size:12px;letter-spacing:3px;margin:0}
+.home-cover .hero-stage{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:auto;min-height:0;flex:1;max-height:560px;padding-top:8px}
+.traveler-art{display:block;flex:1;min-height:0;width:100%;max-width:470px;max-height:460px;overflow:visible}
+.traveler-body{transform-origin:210px 330px;animation:traveler-breathe 5s ease-in-out infinite}
+.ember-flecks{animation:ember-drift 6s ease-in-out infinite}
+.traveler-caption{font-size:10px;letter-spacing:2px;line-height:1.6;color:#8a8e89;white-space:nowrap;padding-bottom:4px}
+.traveler-caption i{font-style:normal;color:#d99c5f;padding:0 9px;font-size:8px}
+.home-cover .home-actions{width:100%;max-width:365px;justify-self:end;display:flex;flex-direction:column;gap:19px;margin-right:3%;padding-top:45px}
+.home-cover .home-actions>.primary-button{min-height:90px;padding:24px 26px;border:1px solid #f0c58e;border-radius:3px;background:linear-gradient(110deg,#edca95,#dba767);color:#34291f;box-shadow:0 5px 0 #806343,0 14px 40px #0002;justify-content:flex-start;gap:19px;transition:background .15s,transform .15s}
+.home-cover .home-actions>.primary-button strong{font-size:30px;font-weight:800;letter-spacing:5px}
+.home-cover .home-actions>.primary-button:hover{background:#f7d7a3;transform:translateY(-2px)}
+.home-cover .home-actions>.primary-button:active{transform:translateY(2px);box-shadow:0 2px 0 #806343}
+.home-cover .menu-symbol{font-size:19px;width:24px;flex:none;opacity:.8}
+.home-cover .menu-arrow{margin-left:auto;font-size:22px;opacity:.6}
+.home-menu-button{display:flex;align-items:center;gap:19px;width:100%;min-height:74px;padding:18px 26px;border:1px solid #8e9a992d;border-radius:3px;color:#d4d5c9;background:#1e292e78;text-align:left;transition:background .15s,border-color .15s}
+.home-menu-button strong{font-size:24px;font-weight:500;letter-spacing:7px}
+.home-menu-button:hover{background:#2e3a3e;border-color:#c2a57980}
+.home-menu-button .menu-symbol{color:#b5ac98}
+.home-cover .front-footer{min-height:26px;padding-top:14px;border:0;font-size:9px;color:#747f80;letter-spacing:1px}
+.home-cover .front-footer button{display:none}
+.home-cover .front-footer>span{margin-left:0}
+.home-cover .front-footer>small{margin-left:auto;font-size:8px;color:#a68c6f;letter-spacing:3px}
+.game-window.menu-open .portrait{background-image:none}
+.save-progress{padding:18px 24px;margin-bottom:24px}
+.save-progress h3,.save-section-heading{font-size:15px;font-weight:500;letter-spacing:2px;margin:0 0 16px}
+.save-progress p{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:11px;color:#b3a28d;line-height:1.7;margin:10px 0}
+.save-progress strong{font-weight:500;color:#e1c6a0}
+.save-tools{margin-top:24px;max-width:760px}
+#front-settings .settings-grid{grid-template-columns:1fr;max-width:760px}
+.settings-links{display:flex;gap:10px;margin-top:12px}.settings-links button{flex:1}
+#front-chapters>.continue-button{margin:0 0 20px;max-width:1060px}
+.asset-loader{position:absolute;inset:0;z-index:40;background:#11191ef5;display:grid;place-items:center;padding:22px}
+.asset-card{width:min(430px,100%);text-align:center;color:#f1dfc3}.asset-spark{display:block;font-size:34px;color:#e2af6f}
+.asset-card h2{font-size:25px;margin:12px 0}.asset-card p{font-size:12px;color:#bbb7ab;line-height:1.8;min-height:44px;margin:12px 0}
+.asset-card progress{width:100%;height:6px;accent-color:#deb47c;display:block;margin:22px 0 28px}
+.asset-actions{display:flex;justify-content:center;gap:14px}.asset-actions button{min-width:130px;min-height:44px;width:auto;margin:0;font-size:12px;padding:12px 20px}
+@keyframes traveler-breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes ember-drift{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(-9px);opacity:1}}
+@media(max-height:650px) and (pointer:fine){.front-shell.home-cover{padding-top:30px}.home-cover .home-story h1{font-size:58px}.home-wordmark{margin-bottom:10px}.home-cover .home-actions{gap:14px;padding-top:20px}.home-cover .home-actions>.primary-button{min-height:74px;padding:18px 24px}.home-menu-button{min-height:62px;padding:14px 24px}.home-cover .front-footer{padding-top:8px;min-height:24px}}
+@media(max-width:900px) and (pointer:fine){.home-cover .home-layout{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:6%}.home-cover .home-story h1{font-size:50px;letter-spacing:3px}.home-cover .home-actions{margin:0}.home-cover .home-actions>.primary-button strong{font-size:25px}.traveler-caption{font-size:8px;letter-spacing:0}.home-cover .home-actions>.primary-button,.home-menu-button{padding-left:18px;padding-right:18px}}
+.touch-mode .front-shell.home-cover{padding:18px max(28px,var(--safe-right,0px)) 10px max(28px,var(--safe-left,0px));overflow:hidden}
+.touch-mode .home-cover .front-header{top:15px;right:28px;min-height:0}.touch-mode .home-cover .front-edition{font-size:7px;letter-spacing:1px}
+.touch-mode .home-cover #front-home{display:block;flex:1;min-height:0;padding:0;overflow:visible}
+.touch-mode .home-cover .home-layout{height:100%;min-height:0;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:7%;max-width:1050px}
+.touch-mode .home-cover .home-story{height:100%;padding-top:4px;gap:0}
+.touch-mode .home-cover .home-story h1{font-size:clamp(35px,calc(var(--stage-width)*.061),56px);letter-spacing:4px}
+.touch-mode .title-spark{font-size:12px;left:-15px;top:4px}.touch-mode .title-underline{height:4px;margin:6px 0 8px}
+.touch-mode .home-wordmark{font-size:7px;letter-spacing:5px;margin-bottom:7px}.touch-mode .home-tagline{font-size:9px;letter-spacing:2px}
+.touch-mode .home-cover .hero-stage{display:flex;min-height:0;flex:1;width:100%;padding-top:0}
+.touch-mode .traveler-art{max-width:330px;max-height:calc(var(--stage-height)*.62)}
+.touch-mode .traveler-caption{font-size:7px;letter-spacing:1px;padding:0}.touch-mode .traveler-caption i{padding:0 4px;font-size:6px}
+.touch-mode .home-cover .home-actions{gap:13px;padding-top:32px;max-width:305px;margin:0}
+.touch-mode .home-cover .home-actions>.primary-button{min-height:64px;padding:14px 18px;gap:12px}
+.touch-mode .home-cover .home-actions>.primary-button strong{font-size:24px;letter-spacing:3px}
+.touch-mode .home-menu-button{min-height:53px;padding:12px 18px;gap:12px}.touch-mode .home-menu-button strong{font-size:19px;letter-spacing:5px}
+.touch-mode .home-cover .menu-symbol{font-size:16px;width:20px}.touch-mode .home-cover .menu-arrow{font-size:18px}
+.touch-mode .home-cover .front-footer{margin:0;padding-top:5px;min-height:18px;font-size:7px}
+.touch-mode .home-cover .front-footer>span{display:block}.touch-mode .home-cover .front-footer>small{font-size:6px;letter-spacing:2px}
+.touch-mode .save-progress{padding:14px 18px}.touch-mode .save-progress p{font-size:10px}
+.touch-mode.compact-stage .home-cover .home-actions{gap:11px;max-width:265px}.touch-mode.compact-stage .home-cover .home-actions>.primary-button{min-height:60px}
+.touch-mode.compact-stage .traveler-caption{letter-spacing:0;font-size:6px}
+@media(prefers-reduced-motion:reduce){.traveler-body,.ember-flecks{animation:none}.home-cover button{transition:none}}
